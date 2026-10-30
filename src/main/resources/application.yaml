@@ -1,0 +1,38 @@
+# Default profile: a local Camunda 8 (Camunda 8 Run or Docker Compose) with an unprotected API.
+# Profiles: saas (Camunda SaaS), offline (no Camunda; UI and health only). See README.md.
+server:
+  port: ${PORT:8090}
+
+spring:
+  application:
+    name: camunda-8-banking-spring-chatbot
+
+camunda:
+  client:
+    mode: self-managed
+    grpc-address: ${CAMUNDA_GRPC_ADDRESS:http://localhost:26500}
+    rest-address: ${CAMUNDA_REST_ADDRESS:http://localhost:8080}
+    auth:
+      method: ${CAMUNDA_AUTH_METHOD:none}
+    worker:
+      defaults:
+        # All jobs in this app finish in well under a second. A short timeout means a job that was
+        # handed to an app instance that stopped is offered again after 30 seconds, not 5 minutes.
+        timeout: PT30S
+
+  chatbot:
+    # 8.10: AI Agent Sub-process v2 template. 8.9: the AI Agent Sub-process template 8.9 ships.
+    target: ${CHATBOT_TARGET:8.10}
+    # bedrock, openai (any OpenAI-compatible endpoint) or gateway (8.10). With target, picks the folder under
+    # bpmn/ the app deploys. No LLM settings here: the process reads model, region and endpoint from the
+    # cluster variable CHATBOT_LLM and the credentials from Camunda secrets. See README.md.
+    llm-provider: ${CHATBOT_LLM_PROVIDER:bedrock}
+    deploy-on-start: ${CHATBOT_DEPLOY_ON_START:true}
+    operate-instance-url: ${CHATBOT_OPERATE_URL:http://localhost:8080/operate/processes/{key}}
+    message-time-to-live: PT1M
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

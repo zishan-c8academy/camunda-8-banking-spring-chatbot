@@ -1,0 +1,42 @@
+{
+  "$schema": "https://unpkg.com/@camunda/schema@0.0.1/resources/form-schema.json",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "tools/generate_models.py",
+    "version": "1"
+  },
+  "schemaVersion": 18,
+  "id": "advisor-reply",
+  "type": "default",
+  "components": [
+    {
+      "type": "text",
+      "text": "## A customer needs an advisor\nConversation {{conversationId}}, customer {{customerId}}. Your answer goes straight to the customer's chat window.",
+      "id": "Field_0"
+    },
+    {
+      "type": "textarea",
+      "key": "summaryShown",
+      "label": "Summary",
+      "readonly": true,
+      "id": "Field_1"
+    },
+    {
+      "type": "textarea",
+      "key": "questionShown",
+      "label": "Customer's question",
+      "readonly": true,
+      "id": "Field_2"
+    },
+    {
+      "type": "textarea",
+      "key": "advisorAnswer",
+      "label": "Your answer to the customer",
+      "validate": {
+        "required": true
+      },
+      "id": "Field_3"
+    }
+  ]
+}

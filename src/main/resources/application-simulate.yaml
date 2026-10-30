@@ -1,0 +1,3 @@
+# Simulate mode: no LLM, no cloud account. A scripted worker in this app answers the AI agent jobs, so the
+# CHATBOT_LLM cluster variable and the LLM secrets are not needed.
+# Run it against a local Camunda without the connectors runtime:  docker compose up -d

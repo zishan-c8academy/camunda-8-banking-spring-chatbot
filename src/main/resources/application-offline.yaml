@@ -1,0 +1,4 @@
+# No Camunda connection: serves the UI and /api/health only. Starting a chat returns 503.
+camunda:
+  client:
+    enabled: false

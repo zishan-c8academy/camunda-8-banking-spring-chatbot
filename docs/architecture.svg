@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Architecture of the Camunda 8 Spring AI chatbot</title>
+  <desc id="d">The browser talks to a Spring Boot app over REST and server-sent events. The app starts and continues a Camunda 8 process and runs job workers. The connectors runtime in the Camunda cluster runs the AI Agent, which calls AWS Bedrock or an OpenAI-compatible endpoint. Advisors answer handoffs in Tasklist.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3d4a5c"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #3d4a5c; stroke-width: 1.5; }
+      .group { fill: #f4f7fa; stroke: #9aa7b6; stroke-width: 1.2; }
+      .cam { fill: #fff6ef; stroke: #c8763a; stroke-width: 1.5; }
+      .llm { fill: #f2f0fb; stroke: #6b5bb3; stroke-width: 1.5; }
+      .app { fill: #eef6f9; stroke: #12506b; stroke-width: 1.5; }
+      .h { font-size: 17px; font-weight: 700; fill: #1b2430; }
+      .t { font-size: 13px; fill: #1b2430; }
+      .s { font-size: 12px; fill: #4a5666; }
+      .lbl { font-size: 12px; fill: #3d4a5c; }
+      .line { stroke: #3d4a5c; stroke-width: 1.5; fill: none; }
+      .dash { stroke: #3d4a5c; stroke-width: 1.3; fill: none; stroke-dasharray: 5 4; }
+      .step { fill: #ffffff; stroke: #12506b; stroke-width: 1.3; }
+      .num { font-size: 13px; font-weight: 700; fill: #ffffff; }
+    </style>
+  </defs>
+  <rect width="1200" height="700" fill="#ffffff"/>
+
+  <!-- Browser -->
+  <rect class="group" x="20" y="60" width="210" height="250" rx="12"/>
+  <text class="h" x="40" y="90">Browser</text>
+  <rect class="box" x="40" y="108" width="170" height="70" rx="8"/>
+  <text class="t" x="52" y="134">Chat UI</text>
+  <text class="s" x="52" y="154">bubbles, thinking steps,</text>
+  <text class="s" x="52" y="170">link to Operate</text>
+  <rect class="box" x="40" y="196" width="170" height="56" rx="8"/>
+  <text class="t" x="52" y="221">Advisor desk</text>
+  <text class="s" x="52" y="240">(or Camunda Tasklist)</text>
+  <text class="s" x="40" y="290">Customer and advisor</text>
+
+  <!-- Spring Boot app -->
+  <rect class="app" x="290" y="40" width="290" height="300" rx="12"/>
+  <text class="h" x="310" y="70">Spring Boot app</text>
+  <rect class="box" x="310" y="86" width="250" height="50" rx="8"/>
+  <text class="t" x="322" y="108">REST API</text>
+  <text class="s" x="322" y="125">start chat, send message, advisor tasks</text>
+  <rect class="box" x="310" y="146" width="250" height="50" rx="8"/>
+  <text class="t" x="322" y="168">SSE stream</text>
+  <text class="s" x="322" y="185">replies, thinking steps, chat closed</text>
+  <rect class="box" x="310" y="206" width="250" height="84" rx="8"/>
+  <text class="t" x="322" y="228">Job workers (@JobWorker)</text>
+  <text class="s" x="322" y="246">accounts, lock card, service request,</text>
+  <text class="s" x="322" y="262">reply, progress listener, close listener</text>
+  <text class="s" x="322" y="278">simulate mode: scripted agent</text>
+  <text class="s" x="310" y="312">Camunda Spring Boot starter (client):</text>
+  <text class="s" x="310" y="328">commands = create instance, publish message</text>
+
+  <!-- Camunda cluster -->
+  <rect class="cam" x="640" y="40" width="320" height="300" rx="12"/>
+  <text class="h" x="660" y="70">Camunda 8 cluster (8.10 or 8.9)</text>
+  <rect class="box" x="660" y="86" width="280" height="64" rx="8"/>
+  <text class="t" x="672" y="108">Orchestration (Zeebe engine)</text>
+  <text class="s" x="672" y="125">process chatbot-conversation,</text>
+  <text class="s" x="672" y="141">DMN hours and fees, form</text>
+  <rect class="box" x="660" y="160" width="280" height="64" rx="8"/>
+  <text class="t" x="672" y="182">Connectors runtime</text>
+  <text class="s" x="672" y="199">AI Agent sub-process, reads</text>
+  <text class="s" x="672" y="215">connector secrets for the LLM</text>
+  <rect class="box" x="660" y="234" width="135" height="48" rx="8"/>
+  <text class="t" x="672" y="263">Operate</text>
+  <rect class="box" x="805" y="234" width="135" height="48" rx="8"/>
+  <text class="t" x="817" y="263">Tasklist</text>
+  <text class="s" x="660" y="320">SaaS, Self-Managed, or docker compose</text>
+
+  <!-- LLM -->
+  <rect class="llm" x="1010" y="120" width="170" height="140" rx="12"/>
+  <text class="h" x="1026" y="150">LLM provider</text>
+  <text class="t" x="1026" y="178">AWS Bedrock</text>
+  <text class="s" x="1026" y="195">(Claude)</text>
+  <text class="t" x="1026" y="222">or OpenAI-compatible</text>
+  <text class="s" x="1026" y="239">endpoint or gateway</text>
+
+  <!-- arrows: browser <-> app -->
+  <path class="line" d="M210,130 L310,112" marker-end="url(#a)"/>
+  <text class="lbl" x="232" y="112">POST</text>
+  <path class="line" d="M310,170 L210,150" marker-end="url(#a)"/>
+  <text class="lbl" x="236" y="176">SSE</text>
+  <path class="line" d="M210,224 L310,124" marker-end="url(#a)"/>
+
+  <!-- app <-> camunda -->
+  <path class="line" d="M560,104 L660,104" marker-end="url(#a)"/>
+  <text class="lbl" x="572" y="96">commands</text>
+  <path class="line" d="M660,130 L560,232" marker-end="url(#a)"/>
+  <text class="lbl" x="586" y="200">jobs</text>
+
+  <!-- connectors <-> llm -->
+  <path class="line" d="M940,192 L1010,192" marker-end="url(#a)"/>
+  <text class="lbl" x="944" y="184">model calls</text>
+
+  <!-- conversation loop -->
+  <rect class="group" x="20" y="380" width="1160" height="300" rx="12"/>
+  <text class="h" x="40" y="410">One turn of the conversation (process chatbot-conversation)</text>
+
+  <g>
+    <rect class="step" x="40" y="430" width="200" height="88" rx="8"/>
+    <circle cx="60" cy="452" r="12" fill="#12506b"/><text class="num" x="56" y="457">1</text>
+    <text class="t" x="80" y="457">Customer message</text>
+    <text class="s" x="52" y="482">POST to the app, published as</text>
+    <text class="s" x="52" y="498">message, key = conversation id</text>
+
+    <rect class="step" x="270" y="430" width="200" height="88" rx="8"/>
+    <circle cx="290" cy="452" r="12" fill="#12506b"/><text class="num" x="286" y="457">2</text>
+    <text class="t" x="310" y="457">AI Agent decides</text>
+    <text class="s" x="282" y="482">model picks tools; context</text>
+    <text class="s" x="282" y="498">kept from earlier turns</text>
+
+    <rect class="step" x="500" y="430" width="200" height="88" rx="8"/>
+    <circle cx="520" cy="452" r="12" fill="#12506b"/><text class="num" x="516" y="457">3</text>
+    <text class="t" x="540" y="457">Tools run</text>
+    <text class="s" x="512" y="482">job workers, DMN, ask customer;</text>
+    <text class="s" x="512" y="498">listener posts thinking step</text>
+
+    <rect class="step" x="730" y="430" width="200" height="88" rx="8"/>
+    <circle cx="750" cy="452" r="12" fill="#12506b"/><text class="num" x="746" y="457">4</text>
+    <text class="t" x="770" y="457">Send reply</text>
+    <text class="s" x="742" y="482">reply worker pushes the</text>
+    <text class="s" x="742" y="498">answer to the browser (SSE)</text>
+
+    <rect class="step" x="960" y="430" width="200" height="88" rx="8"/>
+    <circle cx="980" cy="452" r="12" fill="#12506b"/><text class="num" x="976" y="457">5</text>
+    <text class="t" x="1000" y="457">Wait</text>
+    <text class="s" x="972" y="482">next message: back to 2</text>
+    <text class="s" x="972" y="498">15 minutes quiet: close</text>
+
+    <path class="line" d="M240,474 L270,474" marker-end="url(#a)"/>
+    <path class="line" d="M470,474 L500,474" marker-end="url(#a)"/>
+    <path class="line" d="M700,474 L730,474" marker-end="url(#a)"/>
+    <path class="line" d="M930,474 L960,474" marker-end="url(#a)"/>
+    <path class="line" d="M1060,518 L1060,540 L370,540 L370,518" marker-end="url(#a)"/>
+    <text class="lbl" x="620" y="534">next customer message</text>
+  </g>
+
+  <rect class="box" x="40" y="566" width="540" height="96" rx="8"/>
+  <text class="t" x="52" y="590">Hand off to an advisor</text>
+  <text class="s" x="52" y="610">A tool inside the agent: a user task for the advisors group with a</text>
+  <text class="s" x="52" y="626">Camunda form. The advisor answers in Tasklist (or the advisor desk);</text>
+  <text class="s" x="52" y="642">the answer goes back to the agent as the tool result.</text>
+
+  <rect class="box" x="600" y="566" width="560" height="96" rx="8"/>
+  <text class="t" x="612" y="590">Guardrail: assistant off the rails</text>
+  <text class="s" x="612" y="610">Model call limit, unparsable output or a provider guardrail raises</text>
+  <text class="s" x="612" y="626">AGENT_OFF_RAIL. An error boundary sends a polite fallback reply and</text>
+  <text class="s" x="612" y="642">gives the chat to an advisor.</text>
+</svg>

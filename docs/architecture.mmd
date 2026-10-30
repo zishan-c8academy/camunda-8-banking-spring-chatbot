@@ -1,0 +1,35 @@
+%% Source for docs/architecture.svg (the SVG is drawn by hand for readability; this is the same structure)
+flowchart LR
+  subgraph Browser
+    UI[Chat UI]
+    Desk[Advisor desk]
+  end
+  subgraph App[Spring Boot app]
+    REST[REST API]
+    SSE[SSE stream]
+    Workers["Job workers<br/>accounts, lock card, service request,<br/>reply, progress, close"]
+  end
+  subgraph Camunda[Camunda 8 cluster 8.10 or 8.9]
+    Engine["Orchestration / Zeebe<br/>process chatbot-conversation"]
+    Conn["Connectors runtime<br/>AI Agent sub-process"]
+    Operate
+    Tasklist
+  end
+  LLM["LLM provider<br/>AWS Bedrock or OpenAI-compatible"]
+
+  UI -- POST start / message --> REST
+  SSE -- replies, thinking steps --> UI
+  Desk -- advisor tasks --> REST
+  REST -- create instance / publish message --> Engine
+  Engine -- jobs --> Workers
+  Workers -- push events --> SSE
+  Engine -- agent job --> Conn
+  Conn -- model calls --> LLM
+  Tasklist -- advisor answer --> Engine
+
+  subgraph Turn[One turn]
+    direction LR
+    M1[1 Customer message] --> M2[2 AI Agent decides] --> M3[3 Tools run, progress listeners] --> M4[4 Send reply] --> M5{5 Wait}
+    M5 -- next message --> M2
+    M5 -- 15 minutes quiet --> End((closed))
+  end

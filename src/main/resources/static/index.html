@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banking assistant | Banque Exemple Boréale</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2312506b'/%3E%3Cpath d='M8 27 L16 15 L21 22 L25 17 L32 27 Z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#message">Skip to the message box</a>
+  <header class="top">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+        <rect width="40" height="40" rx="10" fill="currentColor"/>
+        <path d="M8 27 L16 15 L21 22 L25 17 L32 27 Z" fill="#fff"/>
+      </svg>
+      <div>
+        <p class="bank">Banque Exemple Boréale</p>
+        <p class="tagline">A fictional bank. Sample data only.</p>
+      </div>
+    </div>
+    <div class="badges">
+      <p class="badge sim" id="sim-badge" hidden title="A scripted worker replaces the language model. Everything else is real Camunda.">Simulated agent</p>
+      <p class="status" id="status" role="status">Checking connection…</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="chat" aria-labelledby="chat-title">
+      <div class="chat-head">
+        <h1 id="chat-title">Banking assistant</h1>
+        <p class="hint">Ask about your accounts, cards, branch hours and fees, or ask for a person.</p>
+      </div>
+      <ol class="log" id="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation"></ol>
+      <p class="error" id="error" role="alert" hidden></p>
+      <form class="composer" id="composer">
+        <label for="message" class="sr-only">Your message</label>
+        <textarea id="message" name="message" rows="2" maxlength="2000"
+                  placeholder="Type a message and press Enter" required></textarea>
+        <button type="submit" id="send">Send</button>
+      </form>
+    </section>
+
+    <aside class="side" aria-label="Demo controls">
+      <div class="panel">
+        <label for="customer" class="panel-title">Signed in as</label>
+        <select id="customer"></select>
+        <p class="small">Changing the customer starts a new conversation.</p>
+      </div>
+
+      <div class="panel">
+        <h2 class="panel-title">This conversation</h2>
+        <dl class="facts">
+          <dt>Conversation</dt><dd id="conv-id">Not started</dd>
+          <dt>Process model</dt><dd id="model">…</dd>
+        </dl>
+        <a id="operate" class="link" href="#" target="_blank" rel="noopener" hidden>View this conversation in Operate</a>
+        <button type="button" id="reset" class="secondary">Reset demo</button>
+        <p class="small">Reset sets every card back to active, clears service requests and starts a new chat.</p>
+      </div>
+
+      <div class="panel">
+        <h2 class="panel-title">Try these</h2>
+        <p class="small top0">One click sends the message.</p>
+        <ul class="examples" id="examples">
+          <li><button type="button">What is my chequing balance?</button></li>
+          <li><button type="button">I lost my credit card.</button></li>
+          <li><button type="button">How much does it cost to use another bank's ATM?</button></li>
+          <li><button type="button">I moved. Please update my address to 12 rue Exemple, Montréal.</button></li>
+          <li><button type="button">Can I talk to a person about a mortgage?</button></li>
+          <li id="guardrail-example" hidden><button type="button">Test the guardrail</button></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h2 class="panel-title">Advisor desk</h2>
+        <p class="small top0">Open tasks for the advisors group, as an advisor sees them in Tasklist.</p>
+        <div id="desk" aria-live="polite"><p class="small">No open tasks.</p></div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="credit">Sample by Zishan Ali Khan, Camunda</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

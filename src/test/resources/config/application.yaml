@@ -1,0 +1,7 @@
+# Test-only settings, loaded in addition to src/main/resources/application.yaml.
+camunda:
+  process-test:
+    camunda-env-vars:
+      # Camunda 8.10 resolves =camunda.secrets.NAME from a secret store before the agent job is created.
+      # The tests point the file store at this directory and TestSecrets writes dummy secret files into it.
+      CAMUNDA_SECRETS_STORES_FILE_DEFAULT_PATH: /tmp/camunda-test-secrets

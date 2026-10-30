@@ -1,0 +1,12 @@
+target/
+*.class
+.idea/
+*.iml
+.vscode/
+.DS_Store
+.env
+*.env
+__pycache__/
+# local secret values for Camunda 8.10 (one file per secret); never commit them
+secrets/*
+!secrets/.gitkeep

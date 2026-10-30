@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Defs_branch-hours-and-fees" name="Branch hours and fees" namespace="http://camunda.org/schema/1.0/dmn" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <decision id="branch-hours-and-fees" name="Branch hours and fees">
+    <decisionTable id="DT_branch-hours-and-fees" hitPolicy="FIRST">
+      <input id="In_0" label="Topic"><inputExpression id="InExpr_0" typeRef="string"><text>topic</text></inputExpression></input>
+      <output id="Out_0" label="Answer" name="answer" typeRef="string" />
+      <rule id="R_0"><description>Published answer for branch-hours</description><inputEntry id="R_0_i0"><text>"branch-hours"</text></inputEntry><outputEntry id="R_0_o0"><text>"Branches are open Monday to Wednesday and Friday 9:30 to 16:30, Thursday 9:30 to 19:00, and Saturday 10:00 to 14:00 at selected branches. Closed Sundays and statutory holidays."</text></outputEntry></rule>
+      <rule id="R_1"><description>Published answer for monthly-account-fees</description><inputEntry id="R_1_i0"><text>"monthly-account-fees"</text></inputEntry><outputEntry id="R_1_o0"><text>"Everyday chequing: 4.95 dollars a month, waived with a 2,000 dollar minimum monthly balance. Unlimited chequing: 15.95 dollars a month. Students and customers aged 60 or over pay no monthly fee."</text></outputEntry></rule>
+      <rule id="R_2"><description>Published answer for interac-e-transfer</description><inputEntry id="R_2_i0"><text>"interac-e-transfer"</text></inputEntry><outputEntry id="R_2_o0"><text>"Interac e-Transfer is free on Unlimited chequing. On Everyday chequing the first 5 a month are free, then 1.00 dollar each."</text></outputEntry></rule>
+      <rule id="R_3"><description>Published answer for atm-fees</description><inputEntry id="R_3_i0"><text>"atm-fees"</text></inputEntry><outputEntry id="R_3_o0"><text>"Free at Banque Exemple Boréale ATMs. 2.00 dollars at other ATMs in Canada and 5.00 dollars outside Canada, plus any fee the other bank charges."</text></outputEntry></rule>
+      <rule id="R_4"><description>Published answer for card-replacement</description><inputEntry id="R_4_i0"><text>"card-replacement"</text></inputEntry><outputEntry id="R_4_o0"><text>"The first replacement of a lost or stolen card in a year is free, then 10.00 dollars each. A new card arrives in 5 to 7 business days."</text></outputEntry></rule>
+      <rule id="R_5"><description>Published answer for international-wire</description><inputEntry id="R_5_i0"><text>"international-wire"</text></inputEntry><outputEntry id="R_5_o0"><text>"Outgoing international wire: 30.00 dollars. Incoming international wire: 15.00 dollars."</text></outputEntry></rule>
+      <rule id="R_6"><description>Anything else</description><inputEntry id="R_6_i0"><text>-</text></inputEntry><outputEntry id="R_6_o0"><text>"No published answer for this topic. Offer to open a service request or to hand off to an advisor."</text></outputEntry></rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI><dmndi:DMNDiagram id="DD_branch-hours-and-fees"><dmndi:DMNShape id="DS_branch-hours-and-fees" dmnElementRef="branch-hours-and-fees"><dc:Bounds height="80" width="180" x="160" y="100" /></dmndi:DMNShape></dmndi:DMNDiagram></dmndi:DMNDI>
+</definitions>

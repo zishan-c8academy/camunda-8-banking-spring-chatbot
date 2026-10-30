@@ -1,0 +1,18 @@
+# Camunda SaaS. Create a client in Console (cluster > API > Create client, scope Zeebe) and export the
+# values below. Never commit them.
+camunda:
+  client:
+    mode: saas
+    cloud:
+      cluster-id: ${CAMUNDA_CLUSTER_ID}
+      region: ${CAMUNDA_CLUSTER_REGION}
+    # Defaults follow the SaaS address pattern; set these when Console shows different addresses.
+    rest-address: ${CAMUNDA_REST_ADDRESS:https://${CAMUNDA_CLUSTER_REGION}.api.camunda.io/${CAMUNDA_CLUSTER_ID}}
+    grpc-address: ${CAMUNDA_GRPC_ADDRESS:https://${CAMUNDA_CLUSTER_ID}.${CAMUNDA_CLUSTER_REGION}.zeebe.camunda.io:443}
+    auth:
+      method: oidc
+      client-id: ${CAMUNDA_CLIENT_ID}
+      client-secret: ${CAMUNDA_CLIENT_SECRET}
+  chatbot:
+    # Copy the Operate address of your cluster from Console and keep /processes/{key} at the end.
+    operate-instance-url: ${CHATBOT_OPERATE_URL:https://${CAMUNDA_CLUSTER_REGION}.operate.camunda.io/${CAMUNDA_CLUSTER_ID}/processes/{key}}
